@@ -1,5 +1,6 @@
 package med.voll.api.endereco;
 
+// DTO Endereco
 public record DadosEndereco(String logradouro,
                             String cep,
                             String numero,
