@@ -41,6 +41,14 @@ public class Medico {
 
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -55,6 +63,14 @@ public class Medico {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     public String getCrm() {
@@ -72,4 +88,18 @@ public class Medico {
     public void setEspecialidade(Especialidade especialidade) {
         this.especialidade = especialidade;
     }
+
+    // Construtor que recebe os dados a serem atualizados, vindos do método AtualizarInformacoes
+    public void atualizarInformacoes(DadosAtualizacaoMedico dados) {
+        if (dados.nome() != null) {
+            this.nome = dados.nome();
+        }
+        if (dados.telefone() != null) {
+            this.telefone = dados.telefone();
+        }
+        if (dados.endereco() != null) {
+            this.endereco.atualizarInformacoes(dados.endereco()); //Cria um construtor na classe Endereco
+        }
+    }
+
 }

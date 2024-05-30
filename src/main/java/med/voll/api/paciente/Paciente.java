@@ -37,6 +37,15 @@ public class Paciente {
         this.endereco = new Endereco(dados.endereco()); // Construtor já criado na classe Endereco recebendo os DadosEndereco
     }
 
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
