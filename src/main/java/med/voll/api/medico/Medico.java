@@ -1,10 +1,7 @@
 package med.voll.api.medico;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import med.voll.api.endereco.Endereco;
 
 // Anotações da biblioteca JPA
@@ -12,6 +9,7 @@ import med.voll.api.endereco.Endereco;
 @Table(name="medicos")
 // Anotações da biblioteca Lombok
 @Getter                         // gera os métodos Getters
+@Setter                         // gera os métodos Setters
 @NoArgsConstructor              // gera o construtor default(sem argumentos) exigência da JPA
 @AllArgsConstructor             // gera o construtor que recebe totos os campos como argumento
 @EqualsAndHashCode(of = "id")   // gera o EqualsHashCode em cima do id e não de todos os atributos
@@ -41,5 +39,37 @@ public class Medico {
         this.endereco = new Endereco(dados.endereco()); // Cria um construtor na classe Endereco que recebe os DadosEndereco
         this.especialidade = dados.especialidade();
 
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCrm() {
+        return crm;
+    }
+
+    public void setCrm(String crm) {
+        this.crm = crm;
+    }
+
+    public Especialidade getEspecialidade() {
+        return especialidade;
+    }
+
+    public void setEspecialidade(Especialidade especialidade) {
+        this.especialidade = especialidade;
     }
 }
