@@ -25,6 +25,7 @@ public class Paciente {
     private String email;
     private String telefone;
     private String cpf;
+
     @Embedded
     Endereco endereco;
 
@@ -34,5 +35,29 @@ public class Paciente {
         this.cpf = dados.cpf();
         this.telefone = dados.telefone();
         this.endereco = new Endereco(dados.endereco()); // Construtor já criado na classe Endereco recebendo os DadosEndereco
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }
