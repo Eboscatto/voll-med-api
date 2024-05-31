@@ -66,12 +66,21 @@ public class MedicoController {
     }
    */
 
-    // Exclusão lógica de médica
+    // Exclusão lógica de médico
     @DeleteMapping("/{id}") // Parâmetro dinâmico vindo da URL
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id) {
         var medico = repository.getReferenceById(id);
         medico.excluir();
         return ResponseEntity.noContent().build();
+    }
+
+
+
+    // Detalhamneto de médico
+    @GetMapping("/{id}") // Parâmetro dinâmico vindo da URL
+    public ResponseEntity detalhar(@PathVariable Long id) {
+        var medico = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
     }
 }

@@ -75,4 +75,13 @@ public class PacienteController {
         paciente.excluir();
         return ResponseEntity.noContent().build();
     }
+
+    // Detalhar paciente
+   @GetMapping("/{id}") // Parâmetro dinâmico vindo da URL    
+    public ResponseEntity detalhar(@PathVariable Long id) {
+        var paciente = repository.getReferenceById(id);
+
+        return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
+    }
+
 }
