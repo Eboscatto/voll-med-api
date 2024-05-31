@@ -18,21 +18,47 @@ public class MedicoController {
     @Autowired  // Faz a injeção de dependências
     private MedicoRepository repository;
 
-    // Método que faz o cadastro do médico no bando de dados
+    // Cadastra médico
     @PostMapping
     @Transactional // Ativa a transação com o banco de dados
     public void cadastrarMedico(@RequestBody @Valid DadosCadastroMedico dados) {
         repository.save(new Medico(dados)); // Criar um construtor na classe Medico que recebe os DadosCadastroMedico
     }
+    /*
+    // Lista médicos ordenados por nome
     @GetMapping
     public Page<DadosListagemMedico> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         return repository.findAll(paginacao).map(DadosListagemMedico::new);
     }
+   */
 
+    // Lista médicos ativos ordenados por nome
+    @GetMapping
+    public Page<DadosListagemMedico> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);
+    }
+
+    // Atualiza os dados do médico
     @PutMapping
     @Transactional
     public void atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados) {
-       var medico = repository.getReferenceById(dados.id()); // Carrega o objeto no banco de dados
+       var medico = repository.getReferenceById(dados.id()); // Carrega o objeto do banco de dados
         medico.atualizarInformacoes(dados); // Cria um construtor na Classe Medico
+    }
+
+    // Exclui médico
+    /*
+    @DeleteMapping("/{id}") // Parâmetro dinâmico vindo da URL
+    @Transactional
+    public void excluir(@PathVariable Long id) {
+        repository.deleteById(id);
+    }
+   */
+
+    @DeleteMapping("/{id}") // Parâmetro dinâmico vindo da URL
+    @Transactional
+    public void excluir(@PathVariable Long id) {
+        var medico = repository.getReferenceById(id);
+        medico.excluir();
     }
 }
