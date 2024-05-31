@@ -27,7 +27,7 @@ public class Paciente {
     private String cpf;
 
     @Embedded
-    Endereco endereco;
+    private Endereco endereco;
     private Boolean ativo ;
 
     public Paciente(DadosCadastroPaciente dados) {
@@ -72,6 +72,22 @@ public class Paciente {
         this.cpf = cpf;
     }
 
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
     public Boolean getAtivo() {
         return ativo;
     }
@@ -79,6 +95,7 @@ public class Paciente {
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
     }
+
 
     // Construtor que recebe os dados a serem atualizados, vindos do método AtualizarInformacoes
     public void atualizarInformacoes(DadosAtualizacaoPaciente dados) {
@@ -97,3 +114,4 @@ public class Paciente {
         this.ativo = false;
     }
 }
+

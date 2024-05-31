@@ -2,15 +2,15 @@ package med.voll.api.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.medico.DadosAtualizacaoMedico;
-import med.voll.api.medico.DadosListagemMedico;
-import med.voll.api.medico.Medico;
+import med.voll.api.medico.*;
 import med.voll.api.paciente.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Collections;
 import java.util.List;
@@ -24,13 +24,20 @@ public class PacienteController {
     private PacienteRepository repository;
 
     // Cadastra paciente
+
     @PostMapping
     @Transactional // Ativa a transação com o banco de dados
-    public void cadastrarPaciente(@RequestBody @Valid DadosCadastroPaciente dados) {
-        repository.save(new Paciente(dados));// Criar um construtor na classe Paciente que recebe os DadosCadastroPaciente
+    public ResponseEntity cadastrarPaciente(@RequestBody @Valid DadosCadastroPaciente dados, UriComponentsBuilder uriBuilder) {
+        var paciente = new Paciente(dados);
+        repository.save(paciente);
+
+        var uri = uriBuilder.path("/pacientes/{id}").buildAndExpand(paciente.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoPaciente(paciente));
     }
+
 /*
-    // Lista pacientes ordenados por nome
+    // Lista todos pacientes ordenados por nome
     @GetMapping
     public Page<DadosListagemPaciente> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         return repository.findAll(paginacao).map(DadosListagemPaciente::new);
@@ -39,19 +46,21 @@ public class PacienteController {
 
     // Lista pacientes ativos ordenados por nome
     @GetMapping
-    public Page<DadosListagemPaciente> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemPaciente::new);
+    public ResponseEntity <Page<DadosListagemPaciente>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemPaciente::new);
+        return ResponseEntity.ok(page);
     }
 
     // Atualiza os dados do paciente
     @PutMapping
     @Transactional
-    public void atualizar(@RequestBody @Valid DadosAtualizacaoPaciente dados) {
+    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoPaciente dados) {
         var paciente = repository.getReferenceById(dados.id()); // Carrega o objeto no banco de dados
         paciente.atualizarInformacoes(dados); // Cria um construtor na Classe Paciente
+        return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
     }
 /*
-    // Exclui Paciente
+    // Exclusão física de Paciente
     @DeleteMapping("/{id}")
     @Transactional
     public void excluir(@PathVariable Long id) {
@@ -61,8 +70,9 @@ public class PacienteController {
     // Exclusão lógica de paciente
     @DeleteMapping("/{id}") // Parâmetro dinâmico vindo da URL
     @Transactional
-    public void excluir(@PathVariable Long id) {
+    public ResponseEntity excluir(@PathVariable Long id) {
         var paciente = repository.getReferenceById(id);
         paciente.excluir();
+        return ResponseEntity.noContent().build();
     }
 }

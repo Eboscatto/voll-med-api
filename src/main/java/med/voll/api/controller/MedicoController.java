@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.beans.Transient;
 import java.util.List;
@@ -21,11 +23,17 @@ public class MedicoController {
     // Cadastra médico
     @PostMapping
     @Transactional // Ativa a transação com o banco de dados
-    public void cadastrarMedico(@RequestBody @Valid DadosCadastroMedico dados) {
-        repository.save(new Medico(dados)); // Criar um construtor na classe Medico que recebe os DadosCadastroMedico
+    public ResponseEntity cadastrarMedico(@RequestBody @Valid DadosCadastroMedico dados, UriComponentsBuilder uriBuilder) {
+        var medico = new Medico(dados);
+        repository.save(medico);
+
+        var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoMedico(medico));
     }
+
     /*
-    // Lista médicos ordenados por nome
+    // Lista todos os médicos ordenados por nome
     @GetMapping
     public Page<DadosListagemMedico> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         return repository.findAll(paginacao).map(DadosListagemMedico::new);
@@ -34,19 +42,22 @@ public class MedicoController {
 
     // Lista médicos ativos ordenados por nome
     @GetMapping
-    public Page<DadosListagemMedico> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);
+    public ResponseEntity<Page<DadosListagemMedico>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);
+        return ResponseEntity.ok(page);
+
     }
 
     // Atualiza os dados do médico
     @PutMapping
     @Transactional
-    public void atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados) {
+    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados) {
        var medico = repository.getReferenceById(dados.id()); // Carrega o objeto do banco de dados
         medico.atualizarInformacoes(dados); // Cria um construtor na Classe Medico
+        return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
     }
 
-    // Exclui médico
+    // Exclusão física de médico
     /*
     @DeleteMapping("/{id}") // Parâmetro dinâmico vindo da URL
     @Transactional
@@ -55,10 +66,12 @@ public class MedicoController {
     }
    */
 
+    // Exclusão lógica de médica
     @DeleteMapping("/{id}") // Parâmetro dinâmico vindo da URL
     @Transactional
-    public void excluir(@PathVariable Long id) {
+    public ResponseEntity excluir(@PathVariable Long id) {
         var medico = repository.getReferenceById(id);
         medico.excluir();
+        return ResponseEntity.noContent().build();
     }
 }
