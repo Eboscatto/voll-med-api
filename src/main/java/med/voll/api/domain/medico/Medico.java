@@ -4,15 +4,16 @@ import jakarta.persistence.*;
 import lombok.*;
 import med.voll.api.domain.endereco.Endereco;
 
-// Anotações da biblioteca JPA
-@Entity(name = "medico")
-@Table(name="medicos")
 // Anotações da biblioteca Lombok
 @Getter                         // gera os métodos Getters
 @Setter                         // gera os métodos Setters
 @NoArgsConstructor              // gera o construtor default(sem argumentos) exigência da JPA
 @AllArgsConstructor             // gera o construtor que recebe totos os campos como argumento
 @EqualsAndHashCode(of = "id")   // gera o EqualsHashCode em cima do id e não de todos os atributos
+
+// Anotações da biblioteca JPA
+@Entity(name = "medico")
+@Table(name="medicos")
 
 // Classe JPA
 public class Medico {
@@ -42,63 +43,6 @@ public class Medico {
         this.especialidade = dados.especialidade();
 
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getCrm() {
-        return crm;
-    }
-
-    public void setCrm(String crm) {
-        this.crm = crm;
-    }
-
-    public Especialidade getEspecialidade() {
-        return especialidade;
-    }
-
-    public void setEspecialidade(Especialidade especialidade) {
-        this.especialidade = especialidade;
-    }
-
-    public Boolean getAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(Boolean ativo) {
-        this.ativo = ativo;
-    }
-
     // Construtor que recebe os dados a serem atualizados, vindos do método AtualizarInformacoes
     public void atualizarInformacoes(DadosAtualizacaoMedico dados) {
         if (dados.nome() != null) {
@@ -116,11 +60,4 @@ public class Medico {
        this.ativo = false;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
 }

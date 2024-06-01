@@ -22,7 +22,10 @@ public class TratadorDeErros {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity tratarErro400(MethodArgumentNotValidException ex) {
       var erros = ex.getFieldErrors();
-        return ResponseEntity.badRequest().body(erros.stream().map(DadosErroValidacaoDto::new).toList());
+        return ResponseEntity.badRequest()
+                .body(erros.stream()
+                        .map(DadosErroValidacaoDto::new)
+                        .toList());
     }
 
     // Converte a lista de FieldErro para DadosErroValidação

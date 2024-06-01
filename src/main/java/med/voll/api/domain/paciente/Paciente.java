@@ -13,6 +13,7 @@ import med.voll.api.domain.endereco.Endereco;
 @AllArgsConstructor             // gera o construtor que recebe totos os campos como argumento
 @EqualsAndHashCode(of = "id")   // gera o EqualsHashCode em cima do id e não de todos os atributos
 
+// Anotações da biblioteca JPA
 @Entity(name = "paciente")
 @Table(name = "pacientes")
 
@@ -38,64 +39,6 @@ public class Paciente {
         this.telefone = dados.telefone();
         this.endereco = new Endereco(dados.endereco()); // Construtor já criado na classe Endereco recebendo os DadosEndereco
     }
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
-    public Boolean getAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(Boolean ativo) {
-        this.ativo = ativo;
-    }
-
 
     // Construtor que recebe os dados a serem atualizados, vindos do método AtualizarInformacoes
     public void atualizarInformacoes(DadosAtualizacaoPaciente dados) {
