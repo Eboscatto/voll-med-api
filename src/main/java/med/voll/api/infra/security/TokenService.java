@@ -31,28 +31,26 @@ public class TokenService {
             throw new RuntimeException("erro ao gerar token", exception);
         }
     }
-/*
+
     // Faz a validação do token
     public String getSubject(String tokenJWT) {
         try {
-            var algoritmo = Algorithm.HMAC256("123456");
+            var algoritmo = Algorithm.HMAC256(secret);
             return JWT.require(algoritmo)
                     .withIssuer("API Voll.med")
                     .build()
                     .verify(tokenJWT)
                     .getSubject();
-
-
         } catch (JWTVerificationException exception) {
-            throw new RuntimeException("Token JWT inválido ou expirado!!");
+            throw new RuntimeException("Token JWT inválido ou expirado!");
         }
     }
 
 
- */
+
 
     // Gera período de validade do token
     private Instant dataExpiracao() {
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusHours(72).toInstant(ZoneOffset.of("-03:00"));
     }
 }
