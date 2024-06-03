@@ -42,7 +42,6 @@ public class MedicoController {
     public ResponseEntity<Page<DadosListagemMedico>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);
         return ResponseEntity.ok(page);
-
     }
 
     // Atualiza os dados do médico
@@ -71,8 +70,6 @@ public class MedicoController {
         medico.excluir();
         return ResponseEntity.noContent().build();
     }
-
-
 
     // Detalhamneto de médico
     @GetMapping("/{id}") // Parâmetro dinâmico vindo da URL
