@@ -1,6 +1,9 @@
 package med.voll.api.controller;
 
+import med.voll.api.domain.usuario.Usuario;
 import med.voll.api.domain.usuario.dadosAutenticacao;
+import med.voll.api.infra.security.DadosTokenJWT;
+import med.voll.api.infra.security.TokenService;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +19,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/login")
 public class AutenticacaoCotnroller {
 
+    // Dispara o processo de autenticação
     @Autowired // Faz injeçao de dependência do objeto AuthenticationManager
     private AuthenticationManager manager; // Deve ser criado o método AuthenticationManager na Classe SecurityConfigurations
+
+    @Autowired
+    private TokenService tokenService;
     @PostMapping
     public ResponseEntity efetuarLoin(@RequestBody @Validated dadosAutenticacao dados) {
-        var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha()); // Converte meu DTO para o DTO do Spring
-        var authentication = manager.authenticate(token); // Devolve um objeto que recebe o usuario autenticado no sistema
-        return ResponseEntity.ok().build();
 
+        var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha()); // Converte meu DTO para o DTO do Spring
+
+        var authentication = manager.authenticate(authenticationToken); // Devolve um objeto que recebe o usuario autenticado no sistema
+
+        var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
+
+        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT)); // Devolve o token
     }
 }
