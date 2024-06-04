@@ -12,7 +12,7 @@ import med.voll.api.domain.endereco.Endereco;
 @EqualsAndHashCode(of = "id")   // gera o EqualsHashCode em cima do id e não de todos os atributos
 
 // Anotações da biblioteca JPA
-@Entity(name = "medico")
+@Entity(name = "Medico")
 @Table(name="medicos")
 
 // Classe JPA
