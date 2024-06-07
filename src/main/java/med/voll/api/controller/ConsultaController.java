@@ -1,11 +1,9 @@
 package med.voll.api.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
-import med.voll.api.domain.consulta.AgendaDeConsultas;
-import med.voll.api.domain.consulta.DadosAgendamentoConsultas;
+import med.voll.api.domain.consulta.*;
 
-import med.voll.api.domain.consulta.DadosCancelamentoConsulta;
-import med.voll.api.domain.consulta.DadosDetalhamentoConsulta;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +18,16 @@ public class ConsultaController {
     @Autowired // Injeta a classe AngendaDeConsultas
     private AgendaDeConsultas agenda;
 
+    @Autowired
+    private ConsultaRepository consultaRepository;
+
     @PostMapping
     @Transactional
-    public ResponseEntity agendar(@RequestBody @Valid DadosAgendamentoConsultas dados){
-        agenda.agendar(dados);
-        return ResponseEntity.ok(new DadosDetalhamentoConsulta(null,null,null,null));
+    public ResponseEntity agendar(@RequestBody @Valid DadosAgendamentoConsulta dados){
+
+        var dto = agenda.agendar(dados);
+
+        return ResponseEntity.ok(dto);
     }
 
     @DeleteMapping

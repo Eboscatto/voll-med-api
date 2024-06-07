@@ -16,9 +16,9 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
     // Pegar somente o atributo "ativo" da  entidade "Paciente"
     @Query("""
             select p.ativo
-            from Paciente P
+            from Paciente p
             where
             p.id = :id
             """)
-    Boolean findByAtivoId(Long idPaciente);
+    Boolean findByAtivoId(Long id);
 }

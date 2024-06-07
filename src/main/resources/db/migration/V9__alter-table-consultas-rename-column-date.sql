@@ -1,0 +1,1 @@
+alter table consultas rename column date to data;

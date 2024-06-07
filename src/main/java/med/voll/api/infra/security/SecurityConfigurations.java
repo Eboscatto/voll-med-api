@@ -30,6 +30,7 @@ public class SecurityConfigurations {
                         .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // Política de  criação da sessão
                         .authorizeHttpRequests(req -> {
                             req.requestMatchers("/login").permitAll(); // Libera a URl /login
+                            req.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll(); // Libera os endereços para acessar a documentação gerada pela API
                             req.anyRequest().authenticated(); // Bloqueia todas as demais
                         })
                         .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
