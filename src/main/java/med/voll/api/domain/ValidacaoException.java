@@ -1,4 +1,4 @@
-package med.voll.api.domain.exception;
+package med.voll.api.domain;
 
 public class ValidacaoException extends RuntimeException {
     public ValidacaoException(String mensagem) {
