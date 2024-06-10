@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 
 @Component("ValidadorHorarioAntecedenciaCancelamento")
 public class ValidadorHorarioAntecedencia implements ValidadorCancelamentoDeConsulta {
-
     @Autowired
     private ConsultaRepository repository;
 
