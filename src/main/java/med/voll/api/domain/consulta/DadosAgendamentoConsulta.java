@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 
 public record DadosAgendamentoConsulta(
         Long idMedico,
-
         // Anotação do BeanValidation
         @NotNull // Não pode ser nulo
         Long idPaciente,

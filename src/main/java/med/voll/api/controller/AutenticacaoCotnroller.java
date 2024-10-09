@@ -1,10 +1,9 @@
 package med.voll.api.controller;
 
 import med.voll.api.domain.usuario.Usuario;
-import med.voll.api.domain.usuario.dadosAutenticacao;
+import med.voll.api.domain.usuario.DadosAutenticacao;
 import med.voll.api.infra.security.DadosTokenJWT;
 import med.voll.api.infra.security.TokenService;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,7 +25,7 @@ public class AutenticacaoCotnroller {
     @Autowired
     private TokenService tokenService;
     @PostMapping
-    public ResponseEntity efetuarLoin(@RequestBody @Validated dadosAutenticacao dados) {
+    public ResponseEntity efetuarLoin(@RequestBody @Validated DadosAutenticacao dados) {
 
         var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha()); // Converte meu DTO para o DTO do Spring
 
