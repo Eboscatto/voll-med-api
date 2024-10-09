@@ -4,7 +4,10 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import med.voll.api.domain.consulta.*;
 
-import med.voll.api.domain.consulta.DadosRelatorioConsultaMensal;
+import med.voll.api.domain.consulta.dto.DadosAgendamentoConsulta;
+import med.voll.api.domain.consulta.dto.DadosCancelamentoConsulta;
+import med.voll.api.domain.consulta.dto.DadosListagemConsulta;
+import med.voll.api.domain.consulta.dto.DadosRelatorioConsultaMensal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;

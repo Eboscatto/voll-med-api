@@ -3,6 +3,8 @@ package med.voll.api.domain.medico;
 import jakarta.persistence.*;
 import lombok.*;
 import med.voll.api.domain.endereco.Endereco;
+import med.voll.api.domain.medico.dto.DadosAtualizacaoMedico;
+import med.voll.api.domain.medico.dto.DadosCadastroMedico;
 
 // Anotações da biblioteca Lombok
 @Getter                         // gera os métodos Getters

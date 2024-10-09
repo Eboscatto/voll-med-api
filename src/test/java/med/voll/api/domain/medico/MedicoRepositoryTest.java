@@ -2,7 +2,8 @@ package med.voll.api.domain.medico;
 
 import med.voll.api.domain.consulta.Consulta;
 import med.voll.api.domain.endereco.DadosEndereco;
-import med.voll.api.domain.paciente.DadosCadastroPaciente;
+import med.voll.api.domain.medico.dto.DadosCadastroMedico;
+import med.voll.api.domain.paciente.dto.DadosCadastroPaciente;
 import med.voll.api.domain.paciente.Paciente;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,6 @@ import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) // Não substituir as configurações do banco de dados

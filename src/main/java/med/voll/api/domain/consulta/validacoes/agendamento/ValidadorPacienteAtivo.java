@@ -1,6 +1,6 @@
 package med.voll.api.domain.consulta.validacoes.agendamento;
 
-import med.voll.api.domain.consulta.DadosAgendamentoConsulta;
+import med.voll.api.domain.consulta.dto.DadosAgendamentoConsulta;
 import med.voll.api.domain.ValidacaoException;
 import med.voll.api.domain.paciente.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;

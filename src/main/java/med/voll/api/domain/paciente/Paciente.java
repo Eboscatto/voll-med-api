@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.voll.api.domain.endereco.Endereco;
+import med.voll.api.domain.paciente.dto.DadosAtualizacaoPaciente;
+import med.voll.api.domain.paciente.dto.DadosCadastroPaciente;
 
 // Anotações da biblioteca Lombok
 @Getter                         // gera os métodos Getters

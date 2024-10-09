@@ -1,4 +1,4 @@
-package med.voll.api.domain.paciente;
+package med.voll.api.domain.medico.dto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -6,9 +6,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import med.voll.api.domain.endereco.DadosEndereco;
+import med.voll.api.domain.medico.Especialidade;
 
-// DTO Paciente
-public record DadosCadastroPaciente(
+// DTO Médico
+public record DadosCadastroMedico(
         @NotBlank
         String nome,
         @NotBlank
@@ -17,9 +18,12 @@ public record DadosCadastroPaciente(
         @NotBlank
         String telefone,
         @NotBlank
-        @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}")
-        String cpf,
+        @Pattern(regexp = "\\d{4,6}") // Expressão regular
+        String crm,
+        @NotNull
+        Especialidade especialidade,
         @NotNull
         @Valid
         DadosEndereco endereco) {
 }
+// São todas notações do BinValidation - JakartaValidationConstraint
